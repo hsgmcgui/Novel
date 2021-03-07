@@ -1,0 +1,108 @@
+<template>
+  <li class="book-list" @click="$router.push('/book/' + book._id)">
+    <van-card
+      :lazy-load="true"
+      :desc="book.shortIntro"
+      :title="book.title"
+      :thumb="`http://statics.zhuishushenqi.com${book.cover}`"
+    >
+      <!-- <template #footer>
+        <van-button size="mini">{{ book.majorCate }}</van-button>
+      </template> -->
+    </van-card>
+    <div class="renqi">
+      <ul>
+        <li>{{ book.latelyFollower | formatPlayCountWan }}</li>
+        <li>人气</li>
+        <li>|</li>
+        <li>{{ book.retentionRatio }}%</li>
+        <li>读者留存</li>
+      </ul>
+      <!-- <div>{{ book.majorCate }}</div> -->
+    </div>
+    <!-- <div>111</div> -->
+  </li>
+</template>
+
+<script>
+export default {
+  props: ["book"],
+  filters: {
+    formatPlayCountWan: function (value) {
+      return (value / 10000).toFixed(1) + "万";
+    },
+  },
+};
+</script>
+
+<style scoped lang="less">
+.book-list {
+  list-style: none;
+  font-size: 12px;
+  position: relative;
+  .van-card {
+    padding: 10px 0;
+    background-color: #fff;
+    .van-card__thumb {
+      width: 60px;
+      height: 80px;
+      .van-image {
+        .van-image__img {
+          display: block;
+          border-radius: 0;
+        }
+      }
+    }
+    .van-card__content {
+      .van-card__title {
+        font-size: 14px;
+        color: #333;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+      .van-card__desc {
+        max-height: 40px;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+
+  .renqi {
+    width: calc(100vw - 85.6px);
+    // display: flex;
+    position: absolute;
+    right: 0;
+    top: 70%;
+    line-height: 14px;
+    padding-left: 8px;
+    box-sizing: border-box;
+    ul {
+    //   flex: 2;
+      height: 14px;
+      display: flex;
+      position: relative;
+      // margin-right: 20%;
+      // left: 8px;
+      li:nth-child(3) {
+        margin: 0 5px;
+      }
+      li:nth-child(1) {
+        color: red;
+        margin-right: 0;
+      }
+      li:nth-child(4) {
+        color: red;
+        margin-right: 0;
+      }
+    }
+  }
+//   .active {
+//     width: calc(100vw - 145px);
+//   }
+}
+</style>
