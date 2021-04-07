@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     getRanking: function (id) {
-      this.axios.get("http://novel.kele8.cn/rank/" + id).then((response) => {
+      this.axios.get("api/ranking/" + id).then((response) => {
         // console.log(response);
         this.ranking = response.data.ranking;
         // console.log(this.ranking);

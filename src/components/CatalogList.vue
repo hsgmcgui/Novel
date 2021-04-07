@@ -10,7 +10,7 @@ export default {
   props: ["title", "order"],
   methods: {
     updateClickNum: function(){
-      this.$router.push(`/book/${this.$route.params.id}/read`);
+      this.$router.push({path: `/book/${this.$route.params.id}/read`,query: {order: this.order-1}});
       this.$store.commit("updateNum", this.order-1);
     }
   },
@@ -19,6 +19,7 @@ export default {
 
 <style scoped lang="less">
 .catalog-list {
+  width: 100%;
   padding: 0 17px 0 0;
   height: 40px;
   line-height: 40px;

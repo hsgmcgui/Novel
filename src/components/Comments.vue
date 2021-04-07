@@ -4,7 +4,7 @@
       <ul v-if="comments">
         <CommensList  v-for="(item,index) in comments.slice(0,6)" :key="index" :item="item" />
       </ul>
-      <div else>
+      <div v-if="!comments">
         暂无评论
       </div>
   </div>

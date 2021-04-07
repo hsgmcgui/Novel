@@ -45,8 +45,9 @@
         :autoplay="3000"
         indicator-color="white"
         :show-indicators="false"
+        v-if="hotBooks"
       >
-        <van-swipe-item v-for="(name,index) in hotBooks" :key="index">{{name}}</van-swipe-item>
+        <van-swipe-item v-for="(name,index) in hotBooks.slice(0,6)" :key="index">{{name.word}}</van-swipe-item>
         <!-- <van-swipe-item>2</van-swipe-item>
         <van-swipe-item>3</van-swipe-item>
         <van-swipe-item>4</van-swipe-item> -->

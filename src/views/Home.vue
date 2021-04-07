@@ -85,7 +85,7 @@ export default {
     });
 
     this.axios
-      .get("http://novel.kele8.cn/rank/54d42d92321052167dfb75e3")
+      .get("api/ranking/54d42d92321052167dfb75e3")
       .then((response) => {
         // console.log(response);
         this.maleHot = response.data.ranking;
@@ -93,13 +93,13 @@ export default {
       });
 
     this.axios
-      .get("http://novel.kele8.cn/rank/564eb878efe5b8e745508fde")
+      .get("api/ranking/564eb878efe5b8e745508fde")
       .then((response) => {
         this.maleFinish = response.data.ranking;
       });
 
     this.axios
-      .get("http://novel.kele8.cn/rank/564547c694f1c6a144ec979b")
+      .get("api/ranking/564547c694f1c6a144ec979b")
       .then((response) => {
         // console.log(response);
         this.maleLiuchunlv = response.data.ranking;
@@ -108,7 +108,7 @@ export default {
 
       // 女生
       this.axios
-      .get("http://novel.kele8.cn/rank/54d43437d47d13ff21cad58b")
+      .get("api/ranking/54d43437d47d13ff21cad58b")
       .then((response) => {
         // console.log(response);
         this.femaleHot = response.data.ranking;
@@ -116,7 +116,7 @@ export default {
       });
 
       this.axios
-      .get("http://novel.kele8.cn/rank/564eb8a9cf77e9b25056162d")
+      .get("api/ranking/564eb8a9cf77e9b25056162d")
       .then((response) => {
         // console.log(response);
         this.femaleFinish = response.data.ranking;
@@ -124,7 +124,7 @@ export default {
       });
 
       this.axios
-      .get("http://novel.kele8.cn/rank/5645482405b052fe70aeb1b5")
+      .get("api/ranking/5645482405b052fe70aeb1b5")
       .then((response) => {
         // console.log(response);
         this.femaleLiuchunlv = response.data.ranking;

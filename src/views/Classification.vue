@@ -55,7 +55,7 @@ export default {
     };
   },
   created() {
-    this.axios.get("http://novel.kele8.cn/categories").then((response) => {
+    this.axios.get("api/cats/lv2/statistics").then((response) => {
       // console.log(response);
       this.categorys = response.data;
       // console.log(this.categorys);

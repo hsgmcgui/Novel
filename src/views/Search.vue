@@ -16,7 +16,7 @@
       <div class="hot" v-if="!inputing && !books.length">
         <h3>热门推荐</h3>
         <ul>
-          <li v-for="(name, index) in hotBooks" :key="index" @click="getInput(name)">{{ name }}</li>
+          <li v-for="(name, index) in hotBooks.slice(0,6)" :key="index" @click="getInput(name.word)">{{ name.word }}</li>
         </ul>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
       if (n) {
         if (this.inputing) {
           this.axios
-            .get("http://novel.kele8.cn/auto-complete?query=" + this.inputValue)
+            .get("api/book/auto-complete?query=" + this.inputValue)
             .then((res) => {
               this.searchHint = res.data.keywords;
               //   console.log(res.data.keywords);
@@ -82,7 +82,7 @@ export default {
         this.inputing = false;
         this.inputValue = n;
         this.axios
-          .get("http://novel.kele8.cn/search?keyword=" + n)
+          .get("api/book/fuzzy-search?query=" + n)
           .then((res) => {
             this.books = res.data.books;
             // console.log(res.data)

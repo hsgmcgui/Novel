@@ -9,13 +9,14 @@
 <script>
 export default {
   created() {
-    this.axios.get("http://novel.kele8.cn/rank-category").then((response) => {
+    this.axios.get("api/ranking/gender").then((response) => {
       // this.category = response.data;
       this.$store.commit("updateRankCategory", response.data);
       
     });
-    this.axios.get("http://novel.kele8.cn/hot-books").then((res) => {
-      this.$store.commit("updateSearchHot", res.data.hotWords);
+    this.axios.get("api/book/search-hotwords").then((res) => {
+      // console.log(res);
+      this.$store.commit("updateSearchHot", res.data.searchHotWords);
     })
   },
 

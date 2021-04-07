@@ -26,7 +26,7 @@
         <button class="add">加入书架</button>
         <button
           class="read"
-          @click="$router.push(`/book/${$route.params.id}/read`)"
+          @click="$router.push({path: `/book/${$route.params.id}/read`,query: {order: num}})"
         >
           开始阅读
         </button>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import GeneralHeader from "@/components/GeneralHeader.vue";
 import Comments from "@/components/Comments.vue";
 import BottomZhu from "@/components/BottomZhu.vue";
@@ -89,6 +90,9 @@ export default {
       comments: null,
     };
   },
+  computed: {
+    ...mapState(['num'])
+  },
   created() {
     // this.axios.get("http://novel.kele8.cn/book-info/" + id).then((response) => {
     //   // console.log(response);
@@ -100,13 +104,27 @@ export default {
     //   .then((res) => {
     //     this.comments = res.data.reviews;
     //   });
+    this.axios
+      .get("api/book/" + this.$route.params.id)
+      .then((res) => {
+          this.bookInfo = res.data;
+          //   console.log(res.data);
+          this.time = res.data.updated.slice(5, 10);
+      });
+
+    this.axios
+      .get("api/post/review/best-by-book?book=" + this.$route.params.id)
+      .then((res) => {  
+          // console.log(res.data.reviews)
+          this.comments = res.data.reviews;
+      });
   },
   beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当守卫执行前，组件实例还没被创建
     window.axios
-      .get("http://novel.kele8.cn/book-info/" + to.params.id)
+      .get("api/book/" + to.params.id)
       .then((res) => {
         next((vm) => {
           vm.bookInfo = res.data;
@@ -116,7 +134,7 @@ export default {
       });
 
     window.axios
-      .get("http://novel.kele8.cn/book/reviews?book=" + to.params.id)
+      .get("api/post/review/best-by-book?book=" + to.params.id)
       .then((res) => {
         next((vm) => {
           // console.log(res.data.reviews)
@@ -141,14 +159,14 @@ export default {
       // 获取书籍源
       this.axios
         .get(
-          "http://novel.kele8.cn/book-sources?view=summary&book=" +
+          "api/btoc?view=summary&book=" +
             this.bookInfo._id
         )
         .then((res) => {
           // 根据书籍源获取 章节
         //   console.log(res.data[0]._id);
           this.axios
-            .get("http://novel.kele8.cn/book-chapters/" + res.data[0]._id)
+            .get("api/atoc/"+res.data[0]._id+"?view=chapters")
             .then((res) => {
             //   console.log(res.data);
               this.$store.commit("updateChapter", res.data);
@@ -163,6 +181,9 @@ export default {
     formatPlayCountWan: function (value) {
       return (value / 10000).toFixed(1) + "万";
     },
+  },
+  destroyed() {
+    this.$store.commit("updateNum", 0);
   },
 };
 </script>

@@ -26,7 +26,7 @@ export default {
     // 因为当守卫执行前，组件实例还没被创建
     window.axios
       .get(
-        "http://novel.kele8.cn/category-info?gender="+to.query.gender+"&type=hot&major=" +
+        "api/book/by-categories?gender="+to.query.gender+"&type=hot&major=" +
           to.params.name
       )
       .then((res) => {
